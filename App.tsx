@@ -1,20 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import TabBarNavigator from "./src/Router/TabBarNagivator";
+
+import ExempleFullScreenModal from './src/Screens/Modals/ExempleFullScreenModal';
+
+const RootStack = createNativeStackNavigator();
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    return (
+        <NavigationContainer>
+            <RootStack.Navigator screenOptions={{ headerShown: false }} >
+                
+                <RootStack.Group>
+                    <RootStack.Screen name="TabBar" component={TabBarNavigator} />
+                </RootStack.Group>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+                <RootStack.Group screenOptions={{ presentation: "fullScreenModal" }}>
+                    <RootStack.Screen name="ExempleFullScreenModal" component={ExempleFullScreenModal} />
+                </RootStack.Group>
+
+            </RootStack.Navigator>
+        </NavigationContainer>
+    );
+}
